@@ -99,7 +99,7 @@ void captnlog_init(int level, const char *filename, bool console, bool syslog, b
 void captnlog_log(int level, const char *file, int line, const char *fmt, ...)
 {
     /* Don't log if the level is set lower than the level requested */
-    if (level > g_state.level) {
+    if (level > g_state.level || !g_state.initialized) {
         return;
     }
 
@@ -149,6 +149,10 @@ void captnlog_log(int level, const char *file, int line, const char *fmt, ...)
  */
 void captnlog_line(const char *fmt, ...)
 {
+    if (!g_state.initialized) {
+        return;
+    }
+
     /* Lock the mutex to prevent multiple threads trying to write at the same time */
     lock();
 
@@ -182,20 +186,25 @@ void captnlog_line(const char *fmt, ...)
  */
 void captnlog_deinit()
 {
-    if (g_state.fp != NULL) {
-        fclose(g_state.fp);
-        g_state.fp = NULL;
-    }
+    if (g_state.initialized) {
+        /* Don't start to deinit until we can lock the mutex in a threaded environment. */
+        lock();
+        g_state.initialized = false;
 
-    g_state.level = 0;
-    g_state.console = false;
-    g_state.syslog = false;
-    g_state.print_time = false;
+        if (g_state.fp != NULL) {
+            fclose(g_state.fp);
+            g_state.fp = NULL;
+        }
 
+        g_state.level = 0;
+        g_state.console = false;
+        g_state.syslog = false;
+        g_state.print_time = false;
+        unlock();
 #ifdef _WIN32
-    DeleteCriticalSection(&g_state.mutex);
+        DeleteCriticalSection(&g_state.mutex);
 #elif defined USE_PTHREADS
-    pthread_mutex_destroy(&g_state.mutex);
+        pthread_mutex_destroy(&g_state.mutex);
 #endif
-    g_state.initialized = false;
+    }
 }
