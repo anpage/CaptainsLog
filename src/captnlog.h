@@ -36,45 +36,52 @@ extern "C" {
 
 /* Conditionally define the function like macros for logging levels, allows only certain logging to be compiled into client program. */
 #if LOGLEVEL_TRACE <= LOGGING_LEVEL
-#define captnlog_trace(x, ...) captnlog_log(LOGLEVEL_TRACE, __FILE__, __LINE__, ##__VA_ARGS__)
+#define captain_trace(x, ...) captain_log(LOGLEVEL_TRACE, __FILE__, __LINE__, ##__VA_ARGS__)
 #else
-#define captnlog_trace(x, ...) ((void)0)
+#define captain_trace(x, ...) ((void)0)
 #endif
 
 #if LOGLEVEL_DEBUG <= LOGGING_LEVEL
-#define captnlog_debug(x, ...) captnlog_log(LOGLEVEL_DEBUG, __FILE__, __LINE__, ##__VA_ARGS__)
+#define captain_debug(x, ...) captain_log(LOGLEVEL_DEBUG, __FILE__, __LINE__, ##__VA_ARGS__)
 #else
-#define captnlog_debug(x, ...) ((void)0)
+#define captain_debug(x, ...) ((void)0)
 #endif
 
 #if LOGLEVEL_INFO <= LOGGING_LEVEL
-#define captnlog_info(x, ...) captnlog_log(LOGLEVEL_INFO, __FILE__, __LINE__, ##__VA_ARGS__)
+#define captain_info(x, ...) captain_log(LOGLEVEL_INFO, __FILE__, __LINE__, ##__VA_ARGS__)
 #else
-#define captnlog_info(x, ...) ((void)0)
+#define captain_info(x, ...) ((void)0)
 #endif
 
 #if LOGLEVEL_WARN <= LOGGING_LEVEL
-#define captnlog_warn(x, ...) captnlog_log(LOGLEVEL_WARN, __FILE__, __LINE__, ##__VA_ARGS__)
+#define captain_warn(x, ...) captain_log(LOGLEVEL_WARN, __FILE__, __LINE__, ##__VA_ARGS__)
 #else
-#define captnlog_warn(x, ...) ((void)0)
+#define captain_warn(x, ...) ((void)0)
 #endif
   
 #if LOGLEVEL_ERROR <= LOGGING_LEVEL
-#define captnlog_error(x, ...) captnlog_log(LOGLEVEL_ERROR, __FILE__, __LINE__, ##__VA_ARGS__)
+#define captain_error(x, ...) captain_log(LOGLEVEL_ERROR, __FILE__, __LINE__, ##__VA_ARGS__)
 #else
-#define captnlog_error(x, ...) ((void)0)
+#define captain_error(x, ...) ((void)0)
 #endif
 
 #if LOGLEVEL_FATAL <= LOGGING_LEVEL
-#define captnlog_fatal(x, ...) captnlog_log(LOGLEVEL_FATAL, __FILE__, __LINE__, ##__VA_ARGS__)
+#define captain_fatal(x, ...) captain_log(LOGLEVEL_FATAL, __FILE__, __LINE__, ##__VA_ARGS__)
 #else
-#define captnlog_fatal(x, ...) ((void)0)
+#define captain_fatal(x, ...) ((void)0)
 #endif
 
-void captnlog_init(int level, const char *filename, bool console, bool syslog, bool print_time);
-void captnlog_log(int level, const char *file, int line, const char *fmt, ...);
-void captnlog_line(const char *fmt, ...);
-void captnlog_deinit();
+#if LOGGING_LEVEL == LOGLEVEL_NONE
+#define captain_init(level, filename, console, syslog, print_time) ((void)0)
+#define captain_log(level, file, line, format, ...) ((void)0)
+#define captain_line(fmt, ...) ((void)0)
+#define captain_init() ((void)0)
+#else
+void captain_init(int level, const char *filename, bool console, bool syslog, bool print_time);
+void captain_log(int level, const char *file, int line, const char *fmt, ...);
+void captain_line(const char *fmt, ...);
+void captain_deinit();
+#endif
 
 #ifdef __cplusplus
 } // extern "C"

@@ -69,7 +69,7 @@ static void unlock()
  * @param syslog Does the logging system log to either syslog or the windows system logs?
  * @param print_time Does the logging system print the time on a log line?
  */
-void captnlog_init(int level, const char *filename, bool console, bool syslog, bool print_time)
+void captain_init(int level, const char *filename, bool console, bool syslog, bool print_time)
 {
     if (!g_state.initialized) {
         if (filename != NULL) {
@@ -96,7 +96,7 @@ void captnlog_init(int level, const char *filename, bool console, bool syslog, b
 /**
  * Main log function, intended to be used from behind macros that pass in file and line details.
  */
-void captnlog_log(int level, const char *file, int line, const char *fmt, ...)
+void captain_log(int level, const char *file, int line, const char *fmt, ...)
 {
     /* Don't log if the level is set lower than the level requested */
     if (level > g_state.level || !g_state.initialized) {
@@ -147,7 +147,7 @@ void captnlog_log(int level, const char *file, int line, const char *fmt, ...)
 /**
  * Additional function for printing arbitrarily formatted lines.
  */
-void captnlog_line(const char *fmt, ...)
+void captain_line(const char *fmt, ...)
 {
     if (!g_state.initialized) {
         return;
@@ -184,7 +184,7 @@ void captnlog_line(const char *fmt, ...)
 /**
  * Uninitialise the logging system.
  */
-void captnlog_deinit()
+void captain_deinit()
 {
     if (g_state.initialized) {
         /* Don't start to deinit until we can lock the mutex in a threaded environment. */
