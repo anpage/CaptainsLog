@@ -38,7 +38,7 @@ extern "C" {
             static volatile bool _ignore_assert = false; \
             static volatile bool _break = false; \
             if (!_ignore_assert) { \
-                captain_error( \
+                captain_fatal( \
                     "ASSERTION FAILED!\n" \
                     "  File:%s\n  Line:%d\n  Function:%s\n  Expression:%s\n\n", \
                     __FILE__, \
@@ -60,7 +60,7 @@ extern "C" {
             static volatile bool _ignore_assert = false; \
             static volatile bool _break = false; \
             if (!_ignore_assert) { \
-                captain_error( \
+                captain_fatal( \
                     "ASSERTION FAILED!\n" \
                     "  File:%s\n  Line:%d\n  Function:%s\n  Expression:%s\n\n", \
                     __FILE__, \
