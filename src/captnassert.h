@@ -95,7 +95,7 @@ while (false)
 #define captain_ignoreasserts(ignore) ((void)0)
 #define captain_allowpopupsallow) ((void)0)
 #else
-    void captain_assertfail(const char *expr, const char *file, int line, const char *func, volatile bool *ignore,
+void captain_assertfail(const char *expr, const char *file, int line, const char *func, volatile bool *ignore,
         volatile bool *allow_break, const char *msg, ...);
 void captain_ignoreasserts(bool ignore);
 void captain_allowpopups(bool allow);
