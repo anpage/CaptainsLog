@@ -75,7 +75,7 @@ extern "C" {
 #define captain_init(level, filename, console, syslog, print_time) ((void)0)
 #define captain_log(level, file, line, format, ...) ((void)0)
 #define captain_line(fmt, ...) ((void)0)
-#define captain_init() ((void)0)
+#define captain_deinit() ((void)0)
 #else
 void captain_init(int level, const char *filename, bool console, bool syslog, bool print_time);
 void captain_log(int level, const char *file, int line, const char *fmt, ...);
