@@ -79,10 +79,9 @@ extern "C" {
 #define captain_assert(exp, to_throw, msg, ...) \
     do { \
         if (!(exp)) { \
-            throw to_throw;
-}
-}
-while (false)
+            throw to_throw; \
+        } \
+    } while (false)
 
 #define captain_dbgassert(exp, msg, ...) ((void)0)
 #else
