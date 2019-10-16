@@ -45,7 +45,8 @@ extern "C" {
                     __LINE__, \
                     __CURRENT_FUNCTION__, \
                     #exp); \
-                captain_assertfail(#exp, __FILE__, __LINE__, __CURRENT_FUNCTION__, &_ignore_assert, &_break, msg, ##__VA_ARGS__); \
+                captain_assertfail( \
+                    #exp, __FILE__, __LINE__, __CURRENT_FUNCTION__, &_ignore_assert, &_break, msg, ##__VA_ARGS__); \
             } \
             if (_break) { \
                 captain_debugtrap(); \
@@ -79,8 +80,9 @@ extern "C" {
     do { \
         if (!(exp)) { \
             throw to_throw;
-        } \
-    } while (false)
+}
+}
+while (false)
 
 #define captain_dbgassert(exp, msg, ...) ((void)0)
 #else
@@ -88,10 +90,16 @@ extern "C" {
 #define captain_dbgassert(exp, msg, ...) ((void)0)
 #endif
 
-void captain_assertfail(const char *expr, const char *file, int line, const char *func, volatile bool *ignore,
-    volatile bool *allow_break, const char *msg, ...);
+#if ASSERT_LEVEL == ASSERTS_NONE
+#define captain_assertfail(expr, file, line, func, ignore, allow_break, msg, ...) ((void)0)
+#define captain_ignoreasserts(ignore) ((void)0)
+#define captain_allowpopupsallow) ((void)0)
+#else
+    void captain_assertfail(const char *expr, const char *file, int line, const char *func, volatile bool *ignore,
+        volatile bool *allow_break, const char *msg, ...);
 void captain_ignoreasserts(bool ignore);
 void captain_allowpopups(bool allow);
+#endif
 
 #ifdef __cplusplus
 } // extern "C"

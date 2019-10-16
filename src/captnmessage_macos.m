@@ -16,7 +16,7 @@
 #include <AppKit/AppKit.h>
 #include <Availability.h>
 
-int captain_message(int level, int buttons, const char *message)
+int captain_message(const char *message)
 {
 	@autoreleasepool {
 
@@ -24,50 +24,14 @@ int captain_message(int level, int buttons, const char *message)
 
 	NSAlert *alert = [[NSAlert alloc] init];
 
-	switch (level) {
-		default:
 #ifdef __MAC_10_12
-		case CAPTMSG_INFO:
-            [alert setAlertStyle:NSAlertStyleInformational];
-            break;
-		case CAPTMSG_WARNING:
-            [alert setAlertStyle:NSAlertStyleWarning];
-            break;
-		case CAPTMSG_ERROR:
-            [alert setAlertStyle:NSAlertStyleCritical];
-            break;
+    [alert setAlertStyle:NSAlertStyleCritical];
 #else
-		case CAPTMSG_INFO:
-            [alert setAlertStyle:NSInformationalAlertStyle];
-            break;
-		case CAPTMSG_WARNING:
-            [alert setAlertStyle:NSWarningAlertStyle];
-            break;
-		case CAPTMSG_ERROR:
-            [alert setAlertStyle:NSCriticalAlertStyle];
-            break;
+    [alert setAlertStyle:NSCriticalAlertStyle];
 #endif
-	}
-
-	switch (buttons) {
-		default:
-		case CAPTMSG_OK:
-			[alert addButtonWithTitle:@"OK"];
-			break;
-		case CAPTMSG_OK_CANCEL:
-			[alert addButtonWithTitle:@"OK"];
-			[alert addButtonWithTitle:@"Cancel"];
-			break;
-		case CAPTMSG_YES_NO:
-			[alert addButtonWithTitle:@"Yes"];
-			[alert addButtonWithTitle:@"No"];
-			break;
-        case CAPTMSG_ABRT_RET_IGN:
-			[alert addButtonWithTitle:@"Abort"];
-			[alert addButtonWithTitle:@"Retry"];
-			[alert addButtonWithTitle:@"Ignore"];
-			break;
-	}
+	[alert addButtonWithTitle:@"Abort"];
+	[alert addButtonWithTitle:@"Retry"];
+	[alert addButtonWithTitle:@"Ignore"];
 
 	NSString *msg_string = [NSString stringWithUTF8String:message];
 	[alert setMessageText:msg_string];
@@ -76,11 +40,11 @@ int captain_message(int level, int buttons, const char *message)
 
     switch(button) {
         case NSAlertFirstButtonReturn:
-            return CAPTMSG_YES;
+            return CAPTMSG_ABRT;
         case NSAlertThirdButtonReturn:
             return CAPTMSG_IGN;
         default:
-            return CAPTMSG_NO;
+            return CAPTMSG_RET;
     }
 
 	} /* @autoreleasepool */

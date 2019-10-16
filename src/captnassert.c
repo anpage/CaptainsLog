@@ -14,9 +14,11 @@
  */
 #include "captnassert.h"
 #include "captnmessage.h"
+#include <stdarg.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -74,7 +76,7 @@ void captain_assertfail(const char *expr, const char *file, int line, const char
             expr,
             msg_buf);
 
-        switch (captain_message(CAPTMSG_ERROR, CAPTMSG_ABRT_RET_IGN, msg)) {
+        switch (captain_message(msg)) {
             case CAPTMSG_ABRT:
                 exit(-1);
                 break;

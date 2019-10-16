@@ -21,32 +21,15 @@ extern "C" {
 
 typedef enum
 {
-    CAPTMSG_INFO,
-    CAPTMSG_WARNING,
-    CAPTMSG_ERROR,
-} CaptainMessageLevel;
-
-typedef enum
-{
-    CAPTMSG_OK,
-    CAPTMSG_OK_CANCEL,
-    CAPTMSG_YES_NO,
-    CAPTMSG_ABRT_RET_IGN,
-} CaptainMessageButtons;
-
-typedef enum
-{
-    CAPTMSG_NO,
-    CAPTMSG_YES,
     CAPTMSG_IGN,
-    CAPTMSG_RET = CAPTMSG_YES,
-    CAPTMSG_ABRT = CAPTMSG_NO,
+    CAPTMSG_RET,
+    CAPTMSG_ABRT,
 } CaptainMessageResult;
 
 /** 
  * Opens a message box.
  */
-int captain_message(int level, int buttons, const char *message);
+int captain_message(const char *message);
 
 #ifdef __cplusplus
 } // extern "C"
