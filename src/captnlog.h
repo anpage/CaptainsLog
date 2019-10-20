@@ -42,31 +42,31 @@ extern "C" {
 #endif
 
 #if LOGLEVEL_DEBUG <= LOGGING_LEVEL
-#define captain_debug(x, ...) captain_log(LOGLEVEL_DEBUG, __FILE__, __LINE__, ##__VA_ARGS__)
+#define captain_debug(x, ...) captain_log(LOGLEVEL_DEBUG, __FILE__, __LINE__, x, ##__VA_ARGS__)
 #else
 #define captain_debug(x, ...) ((void)0)
 #endif
 
 #if LOGLEVEL_INFO <= LOGGING_LEVEL
-#define captain_info(x, ...) captain_log(LOGLEVEL_INFO, __FILE__, __LINE__, ##__VA_ARGS__)
+#define captain_info(x, ...) captain_log(LOGLEVEL_INFO, __FILE__, __LINE__, x, ##__VA_ARGS__)
 #else
 #define captain_info(x, ...) ((void)0)
 #endif
 
 #if LOGLEVEL_WARN <= LOGGING_LEVEL
-#define captain_warn(x, ...) captain_log(LOGLEVEL_WARN, __FILE__, __LINE__, ##__VA_ARGS__)
+#define captain_warn(x, ...) captain_log(LOGLEVEL_WARN, __FILE__, __LINE__, x, ##__VA_ARGS__)
 #else
 #define captain_warn(x, ...) ((void)0)
 #endif
   
 #if LOGLEVEL_ERROR <= LOGGING_LEVEL
-#define captain_error(x, ...) captain_log(LOGLEVEL_ERROR, __FILE__, __LINE__, ##__VA_ARGS__)
+#define captain_error(x, ...) captain_log(LOGLEVEL_ERROR, __FILE__, __LINE__, x, ##__VA_ARGS__)
 #else
 #define captain_error(x, ...) ((void)0)
 #endif
 
 #if LOGLEVEL_FATAL <= LOGGING_LEVEL
-#define captain_fatal(x, ...) captain_log(LOGLEVEL_FATAL, __FILE__, __LINE__, ##__VA_ARGS__)
+#define captain_fatal(x, ...) captain_log(LOGLEVEL_FATAL, __FILE__, __LINE__, x, ##__VA_ARGS__)
 #else
 #define captain_fatal(x, ...) ((void)0)
 #endif
