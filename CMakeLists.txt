@@ -61,13 +61,13 @@ elseif(GTK3_FOUND)
 endif()
 
 # Set the max logging level to debug by default. See captnlog.h for possible levels.
-if(CAPTNLOG_LEVEL)
-    target_compile_definitions(captnlog PUBLIC LOGGING_LEVEL=${CAPTNLOG_LEVEL})
+if(DEFINED CAPTNLOG_LEVEL)
+    target_compile_definitions(captnlog INTERFACE LOGGING_LEVEL=${CAPTNLOG_LEVEL})
 endif()
 
 # Set the max logging level to debug by default. See captnlog.h for possible levels.
-if(CAPTNASSERT_LEVEL)
-    target_compile_definitions(captnlog PUBLIC ASSERT_LEVEL=${CAPTNASSERT_LEVEL})
+if(DEFINED CAPTNASSERT_LEVEL)
+    target_compile_definitions(captnlog INTERFACE ASSERT_LEVEL=${CAPTNASSERT_LEVEL})
 endif()
 
 if(WIN32 OR "${CMAKE_SYSTEM}" MATCHES "Windows")

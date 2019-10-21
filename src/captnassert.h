@@ -92,7 +92,7 @@ extern "C" {
 #if ASSERT_LEVEL == ASSERTS_NONE
 #define captain_assertfail(expr, file, line, func, ignore, allow_break, msg, ...) ((void)0)
 #define captain_ignoreasserts(ignore) ((void)0)
-#define captain_allowpopupsallow) ((void)0)
+#define captain_allowpopups(allow) ((void)0)
 #else
 void captain_assertfail(const char *expr, const char *file, int line, const char *func, volatile bool *ignore,
         volatile bool *allow_break, const char *msg, ...);
