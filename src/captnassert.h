@@ -32,7 +32,7 @@ extern "C" {
 #endif
 
 #if ASSERT_LEVEL == ASSERTS_DEBUG
-#define captain_assert(exp, to_throw, msg, ...) \
+#define captain_relassert(exp, to_throw, msg, ...) \
     do { \
         if (!(exp)) { \
             static volatile bool _ignore_assert = false; \
@@ -75,8 +75,29 @@ extern "C" {
             } \
         } \
     } while (false)
+#define captain_assert(exp) \
+    do { \
+        if (!(exp)) { \
+            static volatile bool _ignore_assert = false; \
+            static volatile bool _break = false; \
+            if (!_ignore_assert) { \
+                captain_fatal( \
+                    "ASSERTION FAILED!\n" \
+                    "  File:%s\n  Line:%d\n  Function:%s\n  Expression:%s\n\n", \
+                    __FILE__, \
+                    __LINE__, \
+                    __CURRENT_FUNCTION__, \
+                    #exp); \
+                captain_assertfail( \
+                    #exp, __FILE__, __LINE__, __CURRENT_FUNCTION__, &_ignore_assert, &_break, NULL); \
+            } \
+            if (_break) { \
+                captain_debugtrap(); \
+            } \
+        } \
+    } while (false)
 #elif ASSERT_LEVEL == ASSERTS_RELEASE
-#define captain_assert(exp, to_throw, msg, ...) \
+#define captain_relassert(exp, to_throw, msg, ...) \
     do { \
         if (!(exp)) { \
             throw to_throw; \
@@ -84,9 +105,11 @@ extern "C" {
     } while (false)
 
 #define captain_dbgassert(exp, msg, ...) ((void)0)
+#define captain_assert(exp) ((void)0)
 #else
 #define captain_assert(exp, to_throw, msg, ...) ((void)0)
 #define captain_dbgassert(exp, msg, ...) ((void)0)
+#define captain_assert(exp) ((void)0)
 #endif
 
 #if ASSERT_LEVEL == ASSERTS_NONE
