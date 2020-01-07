@@ -107,7 +107,7 @@ extern "C" {
 #define captain_dbgassert(exp, msg, ...) ((void)0)
 #define captain_assert(exp) ((void)0)
 #else
-#define captain_assert(exp, to_throw, msg, ...) ((void)0)
+#define captain_relassert(exp, to_throw, msg, ...) ((void)0)
 #define captain_dbgassert(exp, msg, ...) ((void)0)
 #define captain_assert(exp) ((void)0)
 #endif
