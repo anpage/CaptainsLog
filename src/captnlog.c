@@ -98,6 +98,8 @@ void captain_init(int level, const char *filename, bool console, bool syslog, bo
  */
 void captain_log(int level, const char *file, int line, const char *fmt, ...)
 {
+    char buf[16];
+
     /* Don't log if the level is set lower than the level requested */
     if (level > g_state.level || !g_state.initialized) {
         return;
@@ -105,8 +107,6 @@ void captain_log(int level, const char *file, int line, const char *fmt, ...)
 
     /* Lock the mutex to prevent multiple threads trying to write at the same time */
     lock();
-
-    char buf[16];
 
     /* Get current time */
     if (g_state.print_time) {

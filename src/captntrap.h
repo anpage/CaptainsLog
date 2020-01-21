@@ -32,7 +32,7 @@ extern "C" {
 
 #if __has_builtin(__builtin_debugtrap)
 #define captain_debugtrap __builtin_debugtrap
-#elif defined _WIN32
+#elif defined _WIN32 && !defined __WATCOMC__
 #include <intrin.h>
 #define captain_debugtrap __debugbreak
 /* If we have GCC or compiler that tries to be compatible, use GCC inline assembly. */

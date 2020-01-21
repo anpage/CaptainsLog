@@ -18,17 +18,20 @@
 
 static wchar_t *to_utf16(const char *str)
 {
+    int len;
+    wchar_t *ret;
+
     if (str == NULL) {
         return NULL;
     }
 
-    int len = MultiByteToWideChar(CP_UTF8, 0, str, -1, NULL, 0);
+    len = MultiByteToWideChar(CP_UTF8, 0, str, -1, NULL, 0);
 
     if (len == 0) {
         return NULL;
     }
 
-    wchar_t *ret = malloc(len * sizeof(wchar_t));
+    ret = malloc(len * sizeof(wchar_t));
     MultiByteToWideChar(CP_UTF8, 0, str, -1, ret, len);
 
     return ret;

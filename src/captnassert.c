@@ -36,12 +36,12 @@ static struct
 void captain_assertfail(const char *expr, const char *file, int line, const char *func, volatile bool *ignore,
     volatile bool *allow_break, const char *msg, ...)
 {
+    char msg_buf[MESSAGE_BUFFER_SIZE];
+    
     if (*ignore || g_state.ignore_all) {
         return;
     }
-
-    char msg_buf[MESSAGE_BUFFER_SIZE];
-
+    
     if (msg == NULL) {
         strcpy(msg_buf, "No additional information.");
     } else {
