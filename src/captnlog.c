@@ -12,7 +12,7 @@
  *            A full copy of the GNU General Public License can be found in
  *            LICENSE
  */
-#include "captnlog.h"
+#include "captainslog.h"
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -69,7 +69,7 @@ static void unlock()
  * @param syslog Does the logging system log to either syslog or the windows system logs?
  * @param print_time Does the logging system print the time on a log line?
  */
-void captain_init(int level, const char *filename, bool console, bool syslog, bool print_time)
+void captainslog_init(int level, const char *filename, bool console, bool syslog, bool print_time)
 {
     if (!g_state.initialized) {
         if (filename != NULL) {
@@ -96,7 +96,7 @@ void captain_init(int level, const char *filename, bool console, bool syslog, bo
 /**
  * Main log function, intended to be used from behind macros that pass in file and line details.
  */
-void captain_log(int level, const char *file, int line, const char *fmt, ...)
+void captainslog_log(int level, const char *file, int line, const char *fmt, ...)
 {
     char buf[16];
 
@@ -147,7 +147,7 @@ void captain_log(int level, const char *file, int line, const char *fmt, ...)
 /**
  * Additional function for printing arbitrarily formatted lines.
  */
-void captain_line(const char *fmt, ...)
+void captainslog_line(const char *fmt, ...)
 {
     if (!g_state.initialized) {
         return;
@@ -184,7 +184,7 @@ void captain_line(const char *fmt, ...)
 /**
  * Uninitialise the logging system.
  */
-void captain_deinit()
+void captainslog_deinit()
 {
     if (g_state.initialized) {
         /* Don't start to deinit until we can lock the mutex in a threaded environment. */

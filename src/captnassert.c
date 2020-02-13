@@ -12,7 +12,7 @@
  *            A full copy of the GNU General Public License can be found in
  *            LICENSE
  */
-#include "captnassert.h"
+#include "captainslog.h"
 #include "captnmessage.h"
 #include <stdarg.h>
 #include <stddef.h>
@@ -33,7 +33,7 @@ static struct
     bool allow_popup;
 } g_state;
 
-void captain_assertfail(const char *expr, const char *file, int line, const char *func, volatile bool *ignore,
+void captainslog_assertfail(const char *expr, const char *file, int line, const char *func, volatile bool *ignore,
     volatile bool *allow_break, const char *msg, ...)
 {
     char msg_buf[MESSAGE_BUFFER_SIZE];
@@ -76,7 +76,7 @@ void captain_assertfail(const char *expr, const char *file, int line, const char
             expr,
             msg_buf);
 
-        switch (captain_message(msg)) {
+        switch (captainslog_messagebox(msg)) {
             case CAPTMSG_ABRT:
                 exit(-1);
                 break;
@@ -97,12 +97,12 @@ void captain_assertfail(const char *expr, const char *file, int line, const char
     }
 }
 
-void captain_ignoreasserts(bool ignore)
+void captainslog_ignoreasserts(bool ignore)
 {
     g_state.ignore_all = ignore;
 }
 
-void captain_allowpopups(bool allow)
+void captainslog_allowpopups(bool allow)
 {
     g_state.allow_popup = allow;
 }

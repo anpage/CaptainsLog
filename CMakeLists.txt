@@ -40,7 +40,7 @@ else()
     endif()
 endif()
 
-add_library(captnlog STATIC ${CAPTN_SRC} src/captnlog.h src/captnmessage.h src/captnassert.h)
+add_library(captnlog STATIC ${CAPTN_SRC} src/captainslog.h)
 target_include_directories(captnlog PUBLIC src ${CMAKE_CURRENT_BINARY_DIR}/src)
 
 # We don't need to link anything if we have win32 threads. Affects MinGW builds primarily.

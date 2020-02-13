@@ -37,7 +37,7 @@ static wchar_t *to_utf16(const char *str)
     return ret;
 }
 
-int captain_message(const char *message)
+int captainslog_messagebox(const char *message)
 {
     wchar_t *utf16_msg = to_utf16(message);
     int result = MessageBoxW(GetActiveWindow(), utf16_msg, L"", MB_APPLMODAL | MB_ICONERROR| MB_ABORTRETRYIGNORE);

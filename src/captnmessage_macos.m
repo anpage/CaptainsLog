@@ -16,7 +16,7 @@
 #include <AppKit/AppKit.h>
 #include <Availability.h>
 
-int captain_message(const char *message)
+int captainslog_messagebox(const char *message)
 {
 	@autoreleasepool {
 

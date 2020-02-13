@@ -17,7 +17,7 @@
 #include <string.h>
 #include <gtk/gtk.h>
 
-int captain_message(const char *message)
+int captainslog_messagebox(const char *message)
 {
     assert(gtk_init_check(NULL, NULL));
 
