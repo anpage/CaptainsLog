@@ -17,7 +17,7 @@
 #include <string.h>
 #include <gtk/gtk.h>
 
-int captainslog_messagebox(const char *message)
+int captainslog_messagebox(const char *caption, const char *message)
 {
     assert(gtk_init_check(NULL, NULL));
 
@@ -26,6 +26,8 @@ int captainslog_messagebox(const char *message)
     gtk_dialog_add_button(GTK_DIALOG(dialog), "_Abort", GTK_RESPONSE_OK);
     gtk_dialog_add_button(GTK_DIALOG(dialog), "_Retry", GTK_RESPONSE_CANCEL);
     gtk_dialog_add_button(GTK_DIALOG(dialog), "_Ignore", GTK_RESPONSE_HELP);
+
+    gtk_window_set_title(GTK_WINDOW(dialog), caption);
 
     gint result = gtk_dialog_run(GTK_DIALOG(dialog));
     gtk_widget_destroy(dialog);

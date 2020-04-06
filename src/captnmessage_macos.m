@@ -16,27 +16,27 @@
 #include <AppKit/AppKit.h>
 #include <Availability.h>
 
-int captainslog_messagebox(const char *message)
+int captainslog_messagebox(const char *caption, const char *message)
 {
-	@autoreleasepool {
+    @autoreleasepool {
 
-	NSWindow *key_window = [[NSApplication sharedApplication] keyWindow];
+    NSWindow *key_window = [[NSApplication sharedApplication] keyWindow];
 
-	NSAlert *alert = [[NSAlert alloc] init];
+    NSAlert *alert = [[NSAlert alloc] init];
 
 #ifdef __MAC_10_12
     [alert setAlertStyle:NSAlertStyleCritical];
 #else
     [alert setAlertStyle:NSCriticalAlertStyle];
 #endif
-	[alert addButtonWithTitle:@"Abort"];
-	[alert addButtonWithTitle:@"Retry"];
-	[alert addButtonWithTitle:@"Ignore"];
+    [alert addButtonWithTitle:@"Abort"];
+    [alert addButtonWithTitle:@"Retry"];
+    [alert addButtonWithTitle:@"Ignore"];
 
-	NSString *msg_string = [NSString stringWithUTF8String:message];
-	[alert setMessageText:msg_string];
-	NSInteger button = [alert runModal];
-	[key_window makeKeyAndOrderFront:nil];
+    NSString *msg_string = [NSString stringWithUTF8String:message];
+    [alert setMessageText:msg_string];
+    NSInteger button = [alert runModal];
+    [key_window makeKeyAndOrderFront:nil];
 
     switch(button) {
         case NSAlertFirstButtonReturn:
@@ -47,5 +47,5 @@ int captainslog_messagebox(const char *message)
             return CAPTMSG_RET;
     }
 
-	} /* @autoreleasepool */
+    } /* @autoreleasepool */
 }

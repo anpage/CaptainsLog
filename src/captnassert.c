@@ -76,7 +76,7 @@ void captainslog_assertfail(const char *expr, const char *file, int line, const 
             expr,
             msg_buf);
 
-        switch (captainslog_messagebox(msg)) {
+        switch (captainslog_messagebox("Assertion", assert_buf)) {
             case CAPTMSG_ABRT:
                 exit(-1);
                 break;

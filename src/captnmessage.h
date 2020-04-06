@@ -29,7 +29,7 @@ typedef enum
 /** 
  * Opens a message box.
  */
-int captainslog_messagebox(const char *message);
+int captainslog_messagebox(const char *caption, const char *message);
 
 #ifdef __cplusplus
 } // extern "C"
